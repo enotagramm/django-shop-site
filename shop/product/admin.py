@@ -1,0 +1,73 @@
+from django.contrib import admin
+from .models import *
+
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 0
+    max_num = 5
+
+
+class ProductInOrderInline(admin.TabularInline):
+    model = \
+        ProductInOrder
+    extra = 0
+
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "price", "time_create", "is_published")
+    list_display_links = ("id", "name")
+    search_fields = ("title",)
+    list_editable = ("is_published",)
+    list_filter = ("is_published", "time_create")
+    prepopulated_fields = {"slug": ("name",)}
+    save_on_top = True
+    inlines = [ProductImageInline]
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+    list_display_links = ("id", "name")
+    search_fields = ("name",)
+    prepopulated_fields = {"slug": ("name",)}  # указывает автоматическое заполнение поле slug
+    save_on_top = True
+
+
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = ("id", "photo", "time_create", "is_published")
+    list_display_links = ("id",)
+    search_fields = ("time_create",)
+    list_editable = ("is_published",)
+    list_filter = ("is_published", "time_create")
+    save_on_top = True
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("id", "total_price", "name", "email", "phone", "comments", "time_create", "status")
+    list_display_links = ("id", "total_price", "name")
+    search_fields = ("name", "comments")
+    list_editable = ("status",)
+    ordering = ('-id',)
+    list_filter = ("status", "time_create")
+    save_on_top = True
+    inlines = [ProductInOrderInline]
+
+
+class ProductInOrderAdmin(admin.ModelAdmin):
+    list_display = ("id", "time_create")
+    list_display_links = ("time_create",)
+    save_on_top = True
+
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "time_create", "is_published")
+    list_display_links = ("id", "name")
+    save_on_top = True
+
+
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(ProductImage, ProductImageAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(ProductInOrder, ProductInOrderAdmin)
+admin.site.register(Status, StatusAdmin)
