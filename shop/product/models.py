@@ -38,6 +38,7 @@ class ProductImage(models.Model):
     """Фото товара"""
     product = models.ForeignKey(Product, on_delete=models.PROTECT, verbose_name='Товар')
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото товара")
+    is_main = models.BooleanField('Главное фото', default=False)
     is_published = models.BooleanField('Активен', default=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
     time_update = models.DateTimeField('Время редактирования', auto_now=True)
