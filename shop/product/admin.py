@@ -15,7 +15,8 @@ class ProductInOrderInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "price", "time_create", "is_published")
+    list_display = [field.name for field in Product._meta.fields
+                    if field.name != 'slug' and field.name != "description"]
     list_display_links = ("id", "name")
     search_fields = ("title",)
     list_editable = ("is_published",)
@@ -23,6 +24,9 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     save_on_top = True
     inlines = [ProductImageInline]
+
+    class Meta:
+        model = Product
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -43,7 +47,7 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "total_price", "name", "email", "phone", "comments", "time_create", "status")
+    list_display = [field.name for field in Order._meta.fields]
     list_display_links = ("id", "total_price", "name")
     search_fields = ("name", "comments")
     list_editable = ("status",)
@@ -51,6 +55,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ("status", "time_create")
     save_on_top = True
     inlines = [ProductInOrderInline]
+
+    class Meta:
+        model = Order
 
 
 class ProductInOrderAdmin(admin.ModelAdmin):
