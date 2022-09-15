@@ -1,90 +1,60 @@
-html, body{
-    height: 100%;
-    max-height: 100%;
-    font-family: 'Raleway', sans-serif;
-    background-color: #edeef0;
+.html, body {
+
 }
 
-.navbar{
-    margin-bottom: 0;
+.card-item {
+    border: none;
 }
 
-.wrapper{
-    min-height: 100%;
+.card-header-item {
+    background-color: #e3dede;
+    border-bottom: none;
+    --bs-card-inner-border-radius: none;
+    color: black;
+    margin: 20px 0;
 }
 
-.wrapper-content{
-    overflow: auto;
-    padding-bottom: 180px; /* must be same height as the footer */
-}
-
-.footer{
-    position: relative;
-    margin-top: -180px; /* negative value of footer height */
-    height: 180px;
-    clear: both;
+.card-headers-items {
     background-color: white;
+    border-bottom: none;
 }
 
-.section-top{
-    margin-bottom: 20px
+.clr {
+    background: #e3dede;
+    margin-top: 20px;
 }
 
-.product-description-tabs{
-    margin-bottom: 10px;
+.nav-link-item {
+    color: black;
+    --bs-nav-link-hover-color: #757575;
 }
 
-.section{
-    padding: 30px 0;
+.nav-1 {
+    font-size: 2rem;
 }
 
-.section h1{
-    margin-bottom: 20px;
+.border-top {
+    --bs-border-color: black;
 }
 
-.product-item{
-    height: 680px;
-    background-color: white;
-    border: 1px solid lightgrey;
-    position: relative;
-    padding: 10px 0 10px 0;
-    text-align: center;
-    margin-bottom: 20px;
+.navbar {
+    background-color: #e3dede;
 }
 
-.add-to-card-btn{
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+.nav-link-navbar {
+    color: black;
+    font-size: 1.25rem;
+    text-transform: uppercase;
 }
 
-.discount-container{
-    position: absolute;
-    top: 10%;
-    background: #55e073;
-    width: 30%;
-    color: white;
-    font-weight: 700;
-    padding: 3px;
+.nav-first {
+    margin-left: 40px;
 }
 
-.section-delivery{
-    height: 300px;
-    background-color: darkseagreen;
-    text-align: center;
-    color: white;
+.form-center {
+    margin-right: 40px;
 }
 
-.product-image-item{
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-.card-img-top {
-    margin-bottom: 5px;
-}
-
-.group-item {
-    margin-bottom: 20px;
+.nav-item {
+    margin: 0 10px;
 }

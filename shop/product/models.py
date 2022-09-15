@@ -6,7 +6,7 @@ class Product(models.Model):
     """Товары магазина"""
     name = models.CharField('Наименование товара', max_length=50)
     description = models.TextField('Описание товара')
-    price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
+    price = models.PositiveIntegerField('Цена')
     discount = models.IntegerField('Cкидка', default=0)
     is_published = models.BooleanField('В наличии', default=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
@@ -55,7 +55,7 @@ class ProductImage(models.Model):
 
 class Order(models.Model):
     """Заказ"""
-    total_price = models.DecimalField('Общая цена на товары', max_digits=10, decimal_places=2, null=True, blank=True)
+    total_price = models.PositiveIntegerField('Общая цена на товары', null=True, blank=True)
     name = models.CharField('Имя покупателя', max_length=50)
     email = models.EmailField('Почта покупателя', blank=True)
     phone = models.CharField('Телефон покупателя', max_length=50)
@@ -81,8 +81,8 @@ class ProductInOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT, verbose_name='Заказ')
     product = models.ForeignKey(Product, on_delete=models.PROTECT, verbose_name='Товар')
     number = models.IntegerField('Количество', default=1)
-    price_per_item = models.DecimalField('Цена', max_digits=10, decimal_places=2, null=True, blank=True)
-    total_price = models.DecimalField('Общая цена на товар', max_digits=10, decimal_places=2, null=True, blank=True)
+    price_per_item = models.PositiveIntegerField('Цена', null=True, blank=True)
+    total_price = models.PositiveIntegerField('Общая цена на товар', null=True, blank=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
     time_update = models.DateTimeField('Время редактирования', auto_now=True)
     is_active = models.BooleanField('Активен', default=True)
