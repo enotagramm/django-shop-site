@@ -15,11 +15,13 @@
     </div>
     <div class="container">
       <div class="row">
-      {% for product_photo in products_images %}
+      {% for product_photo in products %}
         <div class="col-sm-3">
             <div class="card text-center h-100 card-item">
                 <div class="card-header card-headers-items">{{ product_photo.product.cat }}</div>
-                <img src="{{ product_photo.photo.url }}" class="card-img-top" alt="">
+                <a href="{{ product_photo.product.get_absolute_url }}">
+                    <img src="{{ product_photo.photo.url }}" class="card-img-top" alt="" >
+                </a>
                   <div class="card-body">
                     <h5 class="card-title">{{ product_photo.product.name }}</h5>
                     <p class="card-text">{{ product_photo.product.price }} ₽</p>
@@ -31,6 +33,7 @@
       </div>    <!-- endrow -->
     </div>    <!-- endcontainer -->
 
+<!-- CATEGORY -->
     <div class="card card-item">
         <div class="text-center">
             <div class="card-header card-header-item">
@@ -38,7 +41,7 @@
             </div>
         </div>
       <div class="row">
-      {% for product_photo in products_images %}
+      {% for product_photo in products %}
         <div class="col-sm-3">
             <div class="card text-center h-100 card-item">
                   <div class="card-body">
@@ -50,5 +53,4 @@
       {% endfor %}
       </div>    <!-- endrow -->
     </div>    <!-- endcard -->
-</div>  <!-- endcontainer -->
 {% endblock %}

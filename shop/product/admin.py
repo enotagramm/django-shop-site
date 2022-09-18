@@ -72,9 +72,16 @@ class StatusAdmin(admin.ModelAdmin):
     save_on_top = True
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "time_create", "is_published")
+    list_display_links = ("id", "name")
+    save_on_top = True
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(ProductInOrder, ProductInOrderAdmin)
 admin.site.register(Status, StatusAdmin)
+admin.site.register(Review, ReviewAdmin)

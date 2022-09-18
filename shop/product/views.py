@@ -1,20 +1,57 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views import View
+from django.views.generic import ListView, DetailView
 
 from .models import *
+from .utils import DataMixin
+from .forms import *
 
 
-def home(request):
-    products_images = ProductImage.objects.order_by("-id").filter(is_published=True,
-                                                                  is_main=True)[:4]
-    products_images_phones = ProductImage.objects.filter(product__cat__id=1,
-                                                         is_main=True,
-                                                         is_published=True)[:3]
+class ProductHome(DataMixin, ListView):
+    """Главная страница"""
+    model = ProductImage
+    template_name = "product/home.html"
+    context_object_name = "products"
 
-    return render(request, "product/home.html", locals())
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="larEk")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return ProductImage.objects.order_by("-id").filter(is_published=True, is_main=True)[:4]
 
 
-def product(request, prod_slug):
-    product_one = Product.objects.get(slug=prod_slug)
-    return render(request, "product/product.html", locals())
+class ProductPage(DataMixin, DetailView):
+    """Страница продукта"""
+    model = Product
+    template_name = "product/product.html"
+    slug_url_kwarg = "prod_slug"
+    context_object_name = "product"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title=context["product"])
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class AddReview(View):
+    """Отзывы"""
+    def post(self, request, pk):
+        form = ReviewForm(request.POST)
+        product = Product.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
+            form.product = product
+            form.save()
+        return redirect(product.get_absolute_url())
+
+
+
+
+
+
 
 

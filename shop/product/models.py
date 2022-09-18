@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import post_save
+from django.urls import reverse
 
 
 class Product(models.Model):
@@ -15,7 +16,13 @@ class Product(models.Model):
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категории')
 
     def __str__(self):
-        return f'{self.name}, {self.price}'
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'prod_slug': self.slug})
+
+    def get_review(self):
+        return self.review_set.filter(parent__isnull=True)
 
     class Meta:
         verbose_name = 'Товар'
@@ -130,3 +137,22 @@ class Status(models.Model):
     class Meta:
         verbose_name = 'Cтатус'
         verbose_name_plural = 'Статусы'
+
+
+class Review(models.Model):
+    """Отзывы"""
+    name = models.CharField("Имя", max_length=50)
+    email = models.EmailField("Почта")
+    comment = models.TextField("Сообщение", max_length=1000)
+    parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Родитель")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Товар")
+    is_published = models.BooleanField('Активен', default=True)
+    time_create = models.DateTimeField('Время создания', auto_now_add=True)
+    time_update = models.DateTimeField('Время редактирования', auto_now=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.product}'
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'

@@ -58,3 +58,40 @@
 .nav-item {
     margin: 0 10px;
 }
+
+.carousel-container {
+    margin: 20px;
+}
+
+.header-product {
+    margin-top: 20px;
+}
+
+.product-description-tabs {
+    margin-top: 20px;
+
+}
+
+.nav-link-tabs {
+    --bs-nav-link-color: #757575;
+    --bs-nav-link-hover-color: black;
+}
+
+.card-header {
+    --bs-card-cap-bg: #e3dede;
+    --bs-card-cap-bg: none;
+}
+
+.rounded-start {
+    --bs-border-radius: none;
+}
+
+.parent-item {
+    padding-left: 40px;
+}
+
+.btn-custom {
+    color: black;
+    text-decoration: none;
+    --bs-link-hover-color: #757575;
+}
