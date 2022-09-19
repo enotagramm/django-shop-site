@@ -1,0 +1,27 @@
+{% extends "product/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row">
+  {% for p in products %}
+    <div class="col-sm-3">
+        <div class="card text-center h-100 card-item">
+            <div class="card-header card-headers-items">{{ p.cat }}</div>
+            <a href="{{ p.get_absolute_url }}">
+                {% for photo_item in p.productimage_set.all %}
+                {% if photo_item.is_main %}
+                <img src="{{ photo_item.photo.url }}" class="card-img-top" alt="" >
+                {% endif %}
+                {% endfor %}
+            </a>
+              <div class="card-body">
+                <h5 class="card-title">{{ p.name }}</h5>
+                <p class="card-text">{{ p.price }} ₽</p>
+                <a href="#" class="btn btn-dark">Добавить в корзину</a>
+              </div>
+        </div>
+    </div>
+  {% endfor %}
+  </div>    <!-- endrow -->
+</div>    <!-- endcontainer -->
+{% endblock %}

@@ -17,8 +17,8 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex form-center" role="search">
-        <input class="form-control me-2" type="search" placeholder="Найдем всё!" aria-label="Search">
+      <form class="d-flex form-center" role="search" action="{% url 'search' %}" method="get">
+        <input class="form-control me-2" type="search" placeholder="Найдем всё!" aria-label="Search" name="q">
         <button class="btn btn-outline-dark" type="submit">Поиск</button>
       </form>
       <ul class="navbar-nav col-auto">

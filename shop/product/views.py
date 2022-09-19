@@ -49,9 +49,16 @@ class AddReview(View):
         return redirect(product.get_absolute_url())
 
 
+class Search(DataMixin, ListView):
+    """Поиск товаров"""
+    template_name = "product/product_search.html"
+    context_object_name = "products"
 
+    def get_queryset(self):
+        return Product.objects.filter(name__iregex=self.request.GET.get("q"))
 
-
-
-
-
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = self.request.GET.get("q")
+        c_def = self.get_user_context(title=f"Вы искали {context['q']}")
+        return dict(list(context.items()) + list(c_def.items()))
