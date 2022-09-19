@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
@@ -6,6 +8,12 @@ class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 0
     max_num = 5
+    readonly_fields = ("get_image",)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.photo.url} width="100" height="100"')
+
+    get_image.short_description = "Фото"
 
 
 class ProductInOrderInline(admin.TabularInline):
@@ -38,12 +46,17 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ("id", "photo", "time_create", "is_published")
+    list_display = ("id", "get_image", "product", "time_create", "is_published")
     list_display_links = ("id",)
     search_fields = ("time_create",)
     list_editable = ("is_published",)
     list_filter = ("is_published", "time_create")
     save_on_top = True
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.photo.url} width="50" height="50"')
+
+    get_image.short_description = "Фото"
 
 
 class OrderAdmin(admin.ModelAdmin):
