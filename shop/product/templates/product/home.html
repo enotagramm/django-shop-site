@@ -41,12 +41,14 @@
             </div>
         </div>
       <div class="row">
-      {% for product_photo in products %}
+      {% for c in cats %}
         <div class="col-sm-3">
             <div class="card text-center h-100 card-item">
                   <div class="card-body">
-                    <h5 class="card-title">{{ product_photo.product.cat }}</h5>
-                <img src="{{ product_photo.photo.url }}" class="card-img-bottom" alt="">
+                    <h5 class="card-title cat-title">{{ c.name }}</h5>
+                        <a href="{{ c.get_absolute_url }}">
+                            <img src="{{ c.image.url }}" class="card-img-bottom cat-img" alt="">
+                        </a>
                   </div>
             </div>
         </div>

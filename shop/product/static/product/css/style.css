@@ -95,3 +95,11 @@
     text-decoration: none;
     --bs-link-hover-color: #757575;
 }
+
+.cat-title {
+    margin-bottom: 20px;
+}
+
+.cat-img {
+    width: 250px;
+}

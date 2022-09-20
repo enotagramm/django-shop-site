@@ -34,9 +34,13 @@ class Category(models.Model):
     """Категории товара"""
     name = models.CharField('Категория', max_length=50)
     slug = models.SlugField('URL', max_length=50, unique=True, db_index=True)
+    image = models.FileField(upload_to="images_cats/", null=True, verbose_name="Картинка категории")
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'cat_slug': self.slug})
 
     class Meta:
         verbose_name = 'Категория'

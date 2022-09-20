@@ -35,6 +35,21 @@ class ProductPage(DataMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class CategoryPage(DataMixin, ListView):
+    """Категории"""
+    template_name = "product/product_search.html"
+    slug_url_kwarg = "cat_slug"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        return Product.objects.filter(cat__slug=self.kwargs["cat_slug"], is_published=True)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="dd")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 class AddReview(View):
     """Отзывы"""
     def post(self, request, pk):

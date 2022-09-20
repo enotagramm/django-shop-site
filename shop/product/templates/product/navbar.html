@@ -12,7 +12,7 @@
           </a>
           <ul class="dropdown-menu">
             {% for c in cats %}
-            <li><a class="dropdown-item" href="#">{{ c.name }}</a></li>
+            <li><a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
             {% endfor %}
           </ul>
         </li>
