@@ -25,7 +25,11 @@
                   <div class="card-body">
                     <h5 class="card-title">{{ product_photo.product.name }}</h5>
                     <p class="card-text">{{ product_photo.product.price }} ₽</p>
-                    <a href="#" class="btn btn-dark">Добавить в корзину</a>
+                    <form action="{% url 'cart:cart_add' product_photo.product.id %}" method="post">
+                        {{ form_class }}
+                        {% csrf_token %}
+                        <input type="submit" value="В корзину">
+                    </form>
                   </div>
             </div>
         </div>

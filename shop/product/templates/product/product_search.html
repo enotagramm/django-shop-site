@@ -17,7 +17,10 @@
               <div class="card-body">
                 <h5 class="card-title">{{ p.name }}</h5>
                 <p class="card-text">{{ p.price }} ₽</p>
-                <a href="#" class="btn btn-dark">Добавить в корзину</a>
+                <!-- Кнопка-триггер модального окна -->
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Добавить в корзину
+                </button>
               </div>
         </div>
     </div>
@@ -25,3 +28,6 @@
   </div>    <!-- endrow -->
 </div>    <!-- endcontainer -->
 {% endblock %}
+
+
+

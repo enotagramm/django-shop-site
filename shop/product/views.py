@@ -5,11 +5,13 @@ from django.views.generic import ListView, DetailView
 from .models import *
 from .utils import DataMixin
 from .forms import *
+from cart.forms import CartAddProductForm
 
 
 class ProductHome(DataMixin, ListView):
     """Главная страница"""
     model = ProductImage
+    form_class = CartAddProductForm
     template_name = "product/home.html"
     context_object_name = "products"
 
@@ -25,6 +27,7 @@ class ProductHome(DataMixin, ListView):
 class ProductPage(DataMixin, DetailView):
     """Страница продукта"""
     model = Product
+    form_class = CartAddProductForm
     template_name = "product/product.html"
     slug_url_kwarg = "prod_slug"
     context_object_name = "product"
