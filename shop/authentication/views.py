@@ -6,7 +6,8 @@ from .forms import LoginForm, RegisterForm
 
 
 def login_user(request):
-    context = {'login_form': LoginForm()}
+    context = {'login_form': LoginForm(),
+               'title': 'Авторизация'}
 
     if request.method == "POST":
         login_form = LoginForm(request.POST)
@@ -32,7 +33,8 @@ class RegisterView(TemplateView):
 
     def get(self, request):
         user_form = RegisterForm()
-        context = {'user_form': user_form}
+        context = {'user_form': user_form,
+                   'title': 'Регистрация'}
         return render(request, 'auth/register.html', context)
 
     def post(self, request):

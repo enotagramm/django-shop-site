@@ -8,7 +8,9 @@
     <div class="col-lg-6">
       <div class="card" style="background: #e3dede">
         <div class="card-body">
+
           <h5 class="card-title text-center">Регистрация</h5>
+
             <form method="post" action="{% url 'register' %}">
               {% csrf_token %}
               {% for field in user_form %}
@@ -22,6 +24,7 @@
                 <button type="submit" class="btn btn-dark btn-lg">Зарегистрироваться</button>
               </div>
             </form>
+
         </div>  <!-- endcard-body -->
       </div>  <!-- endcard -->
     </div>
