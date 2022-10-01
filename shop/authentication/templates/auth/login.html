@@ -1,0 +1,52 @@
+{% extends "product/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-top: 40px; margin-bottom: 40px">
+  <div class="row">
+    <div class="col-lg">
+    </div>
+    <div class="col-lg-6">
+      <div class="card" style="background: #e3dede">
+        <div class="card-body">
+          <h5 class="card-title text-center">Авторизация</h5>
+
+
+            <form method="post" action="{% url 'login' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label" for="id_username">Имя пользователя</label>
+                <input type="text" class="form-control" id="id_username" name="username">
+              </div>
+               <div class="mb-3">
+                <label for="id_password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="id_password" name="password">
+              </div>
+
+               <div class="mb-3 text-center">
+                <h2 class="form-label">{{ attention }}</h2>
+              </div>
+
+              {% for error in login_form.non_field_errors %}
+              <div class="mb-3 text-center">
+                <h2 class="form-label">{{ error }}</h2>
+              </div>
+              {% endfor %}
+
+              <div class="d-grid gap-3">
+              <button type="submit" class="btn btn-dark btn-lg">Войти</button>
+              <div class="d-md-flex justify-content-md-end">
+              <a href="{% url 'register' %}" class="btn btn-outline-dark">
+                Пройти регистрацию
+              </a>
+              </div>
+              </div>
+
+            </form>
+        </div>  <!-- endcard-body -->
+      </div>  <!-- endcard -->
+    </div>
+    <div class="col-lg">
+    </div>
+  </div>
+</div>    <!-- endcontainer -->
+{% endblock %}

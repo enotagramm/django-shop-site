@@ -21,6 +21,7 @@ from shop import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('authentication.urls')),
     path('', include('product.urls')),
 ]
 
