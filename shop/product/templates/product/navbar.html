@@ -23,7 +23,15 @@
       </form>
       <ul class="navbar-nav col-auto">
          <li class="nav-item">
-          <a class="nav-link nav-link-navbar" aria-current="page" href="/">Корзина</a>
+          {% with total_items=cart|length %}
+           {% if cart|length > 0 %}
+            <a class="nav-link nav-link-navbar" aria-current="page" href="{% url 'cart_detail' %}">
+              Корзина: <b>{{ total_items }}</b>
+            </a>
+           {% else %}
+            <a class="nav-link nav-link-navbar" aria-current="page" href="{% url 'cart_detail' %}">Корзина</a>
+           {% endif %}
+           {% endwith %}
         </li>
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">

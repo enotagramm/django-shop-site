@@ -17,7 +17,10 @@
               <div class="card-body">
                 <h5 class="card-title">{{ p.name }}</h5>
                 <p class="card-text">{{ p.price }} ₽</p>
-                <a href="#" class="btn btn-dark">Добавить в корзину</a>
+                  <form action="{% url 'cart_add' p.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-dark" value="Добавить в корзину">
+                  </form>
               </div>
         </div>
     </div>

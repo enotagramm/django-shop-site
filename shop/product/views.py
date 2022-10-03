@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from .models import *
 from .utils import DataMixin
 from .forms import *
+from cart.forms import CartAddProductForm
 
 
 class ProductHome(DataMixin, ListView):

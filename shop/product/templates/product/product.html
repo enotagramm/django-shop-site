@@ -50,8 +50,13 @@
                             Цена товара не окончательная, просим Вас уточнять информацию в магазине.
                         </p>
                         <div class="text-center">
-                            <a href="#" class="btn btn-dark"><h1>Купить</h1></a>
+                            <form action="{% url 'cart_add' product.id %}" method="post">
+                                {{ cart_product_form }}
+                                {% csrf_token %}
+                                <button class="btn btn-dark" type="submit">Купить</button>
+                            </form>
                         </div>
+
                     </div>
                 </div>
 

@@ -1,0 +1,82 @@
+{% extends "product/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-top: 40px; margin-bottom: 40px">
+  <h2>Корзина покупок</h2>
+  {% with total_items=cart|length %}
+  {% if cart|length > 0 %}
+  <table class="table align-middle" style="margin-top: 40px">
+    {% for item in cart %}
+    {% with product=item.product %}
+    <tbody>
+
+      <tr>
+        {% for photo_item in product.productimage_set.all %}
+        {% if photo_item.is_main %}
+        <td class="text-center">
+          <a href="{{ product.get_absolute_url }}">
+            <img src="{{ photo_item.photo.url }}" style="width: 100px" alt="">
+          </a>
+        </td>
+        {% endif %}
+        {% endfor %}
+
+        <td>
+          <a href="{{ product.get_absolute_url }}" class="text-decorator">
+            {{ product.name }}
+          </a>
+        </td>
+
+        <td>
+          {{ item.price }} ₽
+        </td>
+
+         <td class="text-center">
+           <form action="{% url 'cart_add' product.id %}" method="post">
+             {{ item.update_quantity_form.quantity }}
+             {{ item.update_quantity_form.update }}
+             <button class="btn btn-outline-dark" type="submit">Обновить</button>
+             {% csrf_token %}
+           </form>
+        </td>
+
+        <td class="text-center">
+          <h5 style="margin-bottom: 0">
+            {{ item.total_price }} ₽
+          </h5>
+        </td>
+
+        <td class="text-center">
+          <a href="{% url 'cart_remove' product.id %}">
+            <img src="{% static 'product/img/trash3-fill.svg' %}" alt="">
+          </a>
+        </td>
+      </tr>
+    {% endwith %}
+    {% endfor %}
+      <tr style="background: #e3dede">
+        <td colspan="4"></td>
+        <td class="text-center"><h4 style="margin-bottom: 0">Итого</h4></td>
+        <td><h4 style="margin-bottom: 0">{{ cart.get_total_price }} ₽</h4></td>
+      </tr>
+    </tbody>
+  </table>
+
+    <a href="{% url 'home' %}" class="btn btn-outline-dark">Продолжить покупки</a>
+    <a href="#" class="btn btn-dark">Оформить заказ</a>
+
+  {% else %}
+    <table class="table align-middle" style="margin-top: 40px">
+      <tbody>
+        <tr style="background: #e3dede">
+          <td class="text-center " style="opacity: .75; font-size: 30px">Корзина пуста :(</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="{% url 'home' %}" class="btn btn-dark">Продолжить покупки</a>
+
+</div>
+  {% endif %}
+  {% endwith %}
+{% endblock %}
