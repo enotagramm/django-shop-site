@@ -3,9 +3,10 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 
 from .models import *
-from .utils import DataMixin
+from .utils import *
 from .forms import *
 from cart.forms import CartAddProductForm
+from cart.cart import Cart
 
 
 class ProductHome(DataMixin, ListView):
@@ -78,3 +79,30 @@ class Search(DataMixin, ListView):
         context["q"] = self.request.GET.get("q")
         c_def = self.get_user_context(title=f"Вы искали {context['q']}")
         return dict(list(context.items()) + list(c_def.items()))
+
+
+def order_create(request):
+    cart = Cart(request)
+    cats = Category.objects.all()
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                ProductInOrder.objects.create(order=order,
+                                              product=item["product"],
+                                              total_price=item["price"],
+                                              number=item["quantity"],
+                                              )
+            cart.clear()
+            return render(request, 'product/order_created.html', {"order": order,
+                                                                  "menu": menu,
+                                                                  "cats": cats,
+                                                                  })
+    else:
+        form = OrderCreateForm
+    return render(request, 'product/order_create.html', {"cart": cart,
+                                                         "form": form,
+                                                         "menu": menu,
+                                                         "cats": cats,
+                                                         })

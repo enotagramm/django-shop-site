@@ -63,9 +63,8 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Order._meta.fields]
     list_display_links = ("id", "total_price", "name")
     search_fields = ("name", "comments")
-    list_editable = ("status",)
     ordering = ('-id',)
-    list_filter = ("status", "time_create")
+    list_filter = ("time_create",)
     save_on_top = True
     inlines = [ProductInOrderInline]
 
@@ -96,5 +95,4 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(ProductInOrder, ProductInOrderAdmin)
-admin.site.register(Status, StatusAdmin)
 admin.site.register(Review, ReviewAdmin)

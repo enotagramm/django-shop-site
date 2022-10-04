@@ -1,0 +1,68 @@
+{% extends "product/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-top: 40px; margin-bottom: 40px">
+  <div class="row">
+    <div class="col-5">
+        <form method="post" action=".">
+              {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Имя пользователя</label>
+                <input type="text" class="form-control" id="id_name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Электронный ящик</label>
+                <input type="email" class="form-control" id="id_email" name="email" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_phone" class="form-label">Номер телефона</label>
+                <input type="tel" class="form-control" id="id_phone" name="phone" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_address" class="form-label">Город</label>
+                <input type="text" class="form-control" id="id_address" name="address" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_comments" class="form-label">Комментарий к заказу</label>
+                <textarea class="form-control" id="id_comments" name="comments" rows="3"></textarea>
+            </div>
+
+            <button class="btn btn-dark" type="submit">Перейти к оплате</button>
+        </form>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header text-center" style="font-size: 30px; background: #e3dede">
+                Чек-лист
+            </div>
+            <div class="card-body">
+                    <div class="card-text">
+                        <table class="table align-middle">
+                        {% for item in cart %}
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{ item.product.name }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ item.quantity }} шт.
+                                    </td>
+                                    <td>
+                                        {{ item.total_price }} ₽
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+            <div class="card-footer text-end" style="font-size: 30px; background: #e3dede">
+                Всего-то: <b>{{ cart.get_total_price }} ₽</b>
+            </div>
+        </div>
+    </div>
+  </div>    <!-- endrow -->
+</div>    <!-- endcontainer -->
+{% endblock %}

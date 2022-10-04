@@ -74,7 +74,6 @@ class Order(models.Model):
     comments = models.TextField('Комментарии к заказу', blank=True)
     time_create = models.DateTimeField('Время создания', auto_now_add=True)
     time_update = models.DateTimeField('Время редактирования', auto_now=True)
-    status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name='Статус заказа')
 
     def __str__(self):
         return f'Заказ № {self.id}'
